@@ -3,7 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.delose.java.lts</groupId>
   <artifactId>java-lts-features</artifactId>
-  <packaging>jar</packaging>
+    
+  <packaging>pom</packaging>
+    
   <version>1.0-SNAPSHOT</version>
   <name>java-lts-features</name>
   <url>http://maven.apache.org</url>
@@ -21,47 +23,4 @@
       <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.0</version>
-          <configuration>
-              <archive>
-                  <manifest>
-                      <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                      <mainClass>com.delose.java.lts.App</mainClass> <!-- Specify your main class here -->
-                  </manifest>
-              </archive>
-          </configuration>
-      </plugin>
-      <!-- Code coverage & reporting -->
-      <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.7</version>
-          <executions>
-              <execution>
-                  <id>default-prepare-agent</id>
-                  <goals>
-                      <goal>prepare-agent</goal>
-                  </goals>
-              </execution>
-              <execution>
-                  <id>report</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                      <goal>report</goal>
-                  </goals>
-                  <configuration>
-                      <excludes>
-                          <exclude>com/delose/minesweeper/App*</exclude>
-                      </excludes>
-                  </configuration>
-              </execution>
-          </executions>
-      </plugin>
-    </plugins>
-  </build>
 </project>

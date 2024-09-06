@@ -28,7 +28,7 @@ if [ $? -eq 0 ]; then
   # sleep 5  # Delay for 5 seconds
   
   # Run the game using the packaged JAR file
-  java -jar target/java-lts-features-1.0-SNAPSHOT.jar
+  java -jar target/java8-1.0-SNAPSHOT.jar
 else
   echo "Build failed. Please check for errors and try again."
 fi
