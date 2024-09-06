@@ -47,8 +47,8 @@ This module demonstrates key features introduced in Java 11, including enhanceme
 
 ## Directory Structure
 
-- `src/main/java/com/delose/java11/`: Contains the main Java classes demonstrating Java 11 features.
-- `src/test/java/com/delose/java11/`: Contains unit tests for the examples.
+- `src/main/java/com/delose/lts/java11/`: Contains the main Java classes demonstrating Java 11 features.
+- `src/test/java/com/delose/lts/java11/`: Contains unit tests for the examples.
 
 ## Contribution
 
