@@ -1,4 +1,4 @@
-package com.delose.java-lts-features;
+package com.delose.java.lts;
 
 /**
  * Hello world!

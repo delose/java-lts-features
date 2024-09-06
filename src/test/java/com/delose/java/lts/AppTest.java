@@ -1,4 +1,4 @@
-package com.delose.java-lts-features;
+package com.delose.java.lts;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
