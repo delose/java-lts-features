@@ -1,38 +1,63 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    
   <modelVersion>4.0.0</modelVersion>
-
+    
   <groupId>com.delose.java.lts</groupId>
+    
   <artifactId>java-lts-features</artifactId>
+    
   <packaging>pom</packaging>
-
+    
   <version>1.0-SNAPSHOT</version>
+    
   <name>java-lts-features</name>
+    
   <url>http://maven.apache.org</url>
-
+    
   <modules>
-      <module>java8</module>
+          
+    <module>java8</module>
+        
+    <module>java11</module>
+      
   </modules>
-
+    
   <dependencies>
+        
     <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.13.2</version>
-        <scope>test</scope>
+              
+      <groupId>junit</groupId>
+              
+      <artifactId>junit</artifactId>
+              
+      <version>4.13.2</version>
+              
+      <scope>test</scope>
+          
     </dependency>
+      
   </dependencies>
-
+    
   <!-- Dependency management section (optional, but good for version control) -->
+    
   <dependencyManagement>
-      <dependencies>
-          <!-- Other dependencies with specific versions -->
-      </dependencies>
+          
+    <dependencies>
+                
+      <!-- Other dependencies with specific versions -->
+            
+    </dependencies>
+      
   </dependencyManagement>
+    
   
   <properties>
-      <maven.compiler.source>1.8</maven.compiler.source>
-      <maven.compiler.target>1.8</maven.compiler.target>
+          
+    <maven.compiler.source>1.8</maven.compiler.source>
+          
+    <maven.compiler.target>1.8</maven.compiler.target>
+      
   </properties>
-
+  
 </project>
