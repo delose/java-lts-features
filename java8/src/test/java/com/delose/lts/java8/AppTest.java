@@ -1,4 +1,4 @@
-package com.delose.java8;
+package com.delose.lts.java8;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
