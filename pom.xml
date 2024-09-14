@@ -20,6 +20,8 @@
     <module>java8</module>
         
     <module>java11</module>
+    
+    <module>dsa</module>
       
   </modules>
     
