@@ -51,4 +51,24 @@ public class ArrayBeginnerTest {
         assertFalse(array.contains(4));
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetIndexOutOfBounds() {
+        ArrayBeginner array = new ArrayBeginner();
+        array.add(1);
+        array.add(2);
+
+        // This should throw IndexOutOfBoundsException because index 2 is out of bounds (size is 2)
+        array.get(2);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveIndexOutOfBounds() {
+        ArrayBeginner array = new ArrayBeginner();
+        array.add(1);
+        array.add(2);
+
+        // This should throw IndexOutOfBoundsException because index 3 is out of bounds (size is 2)
+        array.remove(3);
+    }
+
 }
