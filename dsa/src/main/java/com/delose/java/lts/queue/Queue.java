@@ -5,4 +5,5 @@ public interface Queue<T> {
     T dequeue();
     boolean isEmpty();
     int size();
+    T peek();
 }
