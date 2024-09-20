@@ -22,7 +22,8 @@
     <module>java11</module>
     
     <module>dsa</module>
-      
+    <module>practice</module>
+    <module>java17</module>
   </modules>
     
   <dependencies>
