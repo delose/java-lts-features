@@ -113,7 +113,7 @@ public class ArrayListOperations<T> {
     /**
      * Remove an item from the list
      */
-    public boolean remote(T item) {
+    public boolean remove(T item) {
         return this.arrayList.remove(item);
     }
 
