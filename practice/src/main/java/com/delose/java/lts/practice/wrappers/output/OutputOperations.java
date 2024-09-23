@@ -12,7 +12,7 @@ public class OutputOperations {
     /**
      * Prints formatted text or values to the console
      */
-    public void print(String format, Object... args) {
+    public void printf(String format, Object... args) {
         System.out.printf(format, args);
     }
 
