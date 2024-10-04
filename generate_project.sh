@@ -8,12 +8,16 @@ fi
 
 ARTIFACT_ID="$1"
 
-# Execute the Maven command with the provided artifact ID
+# Append the artifact ID to the base package name
+BASE_PACKAGE_NAME="com.delose.java.lts"
+PACKAGE_NAME="${BASE_PACKAGE_NAME}.${ARTIFACT_ID}"
+
+# Execute the Maven command with the updated package name
 mvn archetype:generate \
-  -DgroupId=com.delose.java.lts \
+  -DgroupId="$BASE_PACKAGE_NAME" \
   -DartifactId="$ARTIFACT_ID" \
-  -DpackageName=com.delose.java.lts \
+  -DpackageName="$PACKAGE_NAME" \
   -DarchetypeArtifactId=maven-archetype-quickstart \
   -DinteractiveMode=false
 
-
+  
