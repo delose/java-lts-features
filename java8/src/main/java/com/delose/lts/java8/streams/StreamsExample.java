@@ -5,15 +5,15 @@ import java.util.stream.Collectors;
 
 public class StreamsExample {
 
-    public List<String> filterNames(List<String> names, String startsWith) {
+    public List<String> filterStartsWith(List<String> names, String startsWith) {
         return names.stream()
                 .filter(name -> name.startsWith(startsWith))
                 .collect(Collectors.toList());
     }
 
-    public List<String> filterNames(List<String> names) {
+    public List<String> filterStartsWith(List<String> names) {
         String STARTS_WITH_DEFAULT = "A";
-        return this.filterNames(names, STARTS_WITH_DEFAULT);
+        return this.filterStartsWith(names, STARTS_WITH_DEFAULT);
     }
 
     public enum NumberType {
@@ -27,17 +27,28 @@ public class StreamsExample {
                 .collect(Collectors.toList());
     }
 
+    public enum TextCase {
+        LOWER,
+        UPPER
+    }
+
+    public List<String> mapUpperLowerCase(List<String> list, TextCase tc) {
+        return list.stream()
+                .map(text -> tc.equals(TextCase.UPPER) ? text.toUpperCase() : text.toLowerCase())
+                .collect(Collectors.toList());
+    }
+
     public static void main(String[] args) {
 
         StreamsExample s = new StreamsExample();
 
-        // Starts with
-
         List<String> stringList = List.of(
                 "John", "Jenkins", "Karl", "Lonnie", "Gustaf", "Candice", "Adele");
 
-        List<String> namesThatStartsWithC = s.filterNames(stringList, "C");
-        List<String> namesThatStartsWithDefault = s.filterNames(stringList, "A");
+        // Starts with
+
+        List<String> namesThatStartsWithC = s.filterStartsWith(stringList, "C");
+        List<String> namesThatStartsWithDefault = s.filterStartsWith(stringList, "A");
 
         System.out.println(namesThatStartsWithC);
         System.out.println(namesThatStartsWithDefault);
@@ -49,6 +60,14 @@ public class StreamsExample {
 
         System.out.println(oddNumbers);
         System.out.println(evenNumbers);
+
+        // Upper/Lower case
+
+        List<String> upperCase = s.mapUpperLowerCase(stringList, TextCase.UPPER);
+        List<String> lowerCase = s.mapUpperLowerCase(stringList, TextCase.LOWER);
+
+        System.out.println(upperCase);
+        System.out.println(lowerCase);
 
     }
 

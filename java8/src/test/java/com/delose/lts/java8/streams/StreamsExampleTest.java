@@ -13,7 +13,7 @@ public class StreamsExampleTest {
         StreamsExample example = new StreamsExample();
 
         List<String> names = Arrays.asList("John", "Jane", "Peter", "Alice", "Jack");
-        List<String> filteredNames = example.filterNames(names);
+        List<String> filteredNames = example.filterStartsWith(names);
 
         assertEquals(Arrays.asList("John", "Jane", "Jack"), filteredNames);
     }
