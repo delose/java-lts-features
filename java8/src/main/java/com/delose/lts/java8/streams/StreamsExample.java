@@ -47,6 +47,8 @@ public class StreamsExample {
         List<String> stringList = List.of(
                 "John", "Jenkins", "Karl", "Lonnie", "Gustaf", "Candice", "Adele");
 
+        List<Integer> intList = List.of(1, 2, 3, 4, 5, 6);
+
         // Starts with
 
         List<String> namesThatStartsWithC = s.filterStartsWith(stringList, "C");
@@ -57,8 +59,8 @@ public class StreamsExample {
 
         // Odd / Even numbers
 
-        List<Integer> oddNumbers = s.filterOddEven(List.of(1, 2, 3, 4, 5, 6), NumberType.ODD);
-        List<Integer> evenNumbers = s.filterOddEven(List.of(1, 2, 3, 4, 5, 6), NumberType.EVEN);
+        List<Integer> oddNumbers = s.filterOddEven(intList, NumberType.ODD);
+        List<Integer> evenNumbers = s.filterOddEven(intList, NumberType.EVEN);
 
         System.out.println(oddNumbers);
         System.out.println(evenNumbers);
@@ -82,6 +84,14 @@ public class StreamsExample {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        // Sum of squares
+
+        int sumOfSquares = List.of(1, 2, 3).stream()
+                .map(n -> n*n)
+                .reduce(0, Integer::sum);
+
+        System.out.println(sumOfSquares);
 
 
     }
