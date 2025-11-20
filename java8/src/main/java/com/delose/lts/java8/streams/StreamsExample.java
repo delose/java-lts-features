@@ -1,6 +1,7 @@
 package com.delose.lts.java8.streams;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -92,6 +93,19 @@ public class StreamsExample {
                 .reduce(0, Integer::sum);
 
         System.out.println(sumOfSquares);
+
+        // Sort / Reverse Sort
+
+        List<String> sortedNames = stringList.stream()
+                .sorted()
+                .collect(Collectors.toList());
+
+        List<String> reverseSort = stringList.stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+
+        System.out.println(sortedNames);
+        System.out.println(reverseSort);
 
 
     }
