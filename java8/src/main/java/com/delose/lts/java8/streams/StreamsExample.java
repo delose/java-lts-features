@@ -1,6 +1,8 @@
 package com.delose.lts.java8.streams;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StreamsExample {
@@ -68,6 +70,19 @@ public class StreamsExample {
 
         System.out.println(upperCase);
         System.out.println(lowerCase);
+
+        // Find first
+
+        Optional<String> first = stringList.stream().findFirst();
+        System.out.println(first);
+
+        try {
+            Optional<String> empty = new ArrayList<String>().stream().findFirst();
+            System.out.println(empty.get().concat(": was found!")); // will not go here
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
 
     }
 
