@@ -8,7 +8,7 @@ record Book(String language, String title) {}
 
 public class GroupByExample {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         List<Book> books = List.of(
                 new Book("Spanish", "Don Quixote"),
                 new Book("Spanish", "La Sombra del Viento"),
