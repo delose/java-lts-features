@@ -117,6 +117,14 @@ public class StreamsExample {
                 .min(Integer::compare);
         minNumber.ifPresent(System.out::println);
 
+        // Convert intList to longList
+        List<Long> longList = intList.stream()
+                .mapToLong(Long::valueOf)
+                .boxed()
+                .toList();
+
+        System.out.println(longList);
+
 
 
     }
