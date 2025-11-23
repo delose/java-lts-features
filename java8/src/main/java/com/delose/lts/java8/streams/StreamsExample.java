@@ -107,6 +107,17 @@ public class StreamsExample {
         System.out.println(sortedNames);
         System.out.println(reverseSort);
 
+        // Find max in list
+        Optional<Integer> maxNumber = intList.stream()
+                .max(Integer::compare);
+        maxNumber.ifPresent(System.out::println);
+
+        // Find min in list
+        Optional<Integer> minNumber = intList.stream()
+                .min(Integer::compare);
+        minNumber.ifPresent(System.out::println);
+
+
 
     }
 
