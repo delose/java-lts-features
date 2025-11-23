@@ -1,9 +1,6 @@
 package com.delose.lts.java8.streams;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StreamsExample {
@@ -125,8 +122,21 @@ public class StreamsExample {
 
         System.out.println(longList);
 
+        // Anagram list
 
+        List<String> words = Arrays.asList("listen", "silent", "enlist", "rat", "tar", "god", "dog", "team", "meat");
 
+        Map<String, List<String>> anagramList = words.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.groupingBy(
+                        word -> {
+                            char[] chars = word.toCharArray();
+                            Arrays.sort(chars);
+                            return new String(chars);
+                        }
+                ));
+
+        System.out.println(anagramList);
     }
 
 }
