@@ -137,6 +137,19 @@ public class StreamsExample {
                 ));
 
         System.out.println(anagramList);
+
+        // Count frequency of each word
+        List<String> sentences = List.of(
+                "Java is fun",
+                "Streams are powerful",
+                "Java is powerful"
+        );
+        Map<String, Long> wordFreq = sentences.stream()
+                .flatMap(sentence ->
+                        Arrays.stream(sentence.toLowerCase().split("\\s+")))
+                .collect(Collectors.groupingBy(word -> word, Collectors.counting()));
+
+        System.out.println(wordFreq);
     }
 
 }
