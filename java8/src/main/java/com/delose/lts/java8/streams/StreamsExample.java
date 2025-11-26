@@ -1,6 +1,7 @@
 package com.delose.lts.java8.streams;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class StreamsExample {
@@ -150,6 +151,19 @@ public class StreamsExample {
                 .collect(Collectors.groupingBy(word -> word, Collectors.counting()));
 
         System.out.println(wordFreq);
+
+        // Find duplicate numbers and how many times they occur
+
+        List<Integer> integerListWithDuplicates = List.of(1, 2, 2, 3, 4, 4, 4, 5, 5, 6, 7, 7, 7, 7, 7, 8, 8, 9, 9, 9);
+
+        Map<Integer, Long> duplicates = integerListWithDuplicates.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream()
+                .filter(e -> e.getValue() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        System.out.println(duplicates);
+
     }
 
 }
