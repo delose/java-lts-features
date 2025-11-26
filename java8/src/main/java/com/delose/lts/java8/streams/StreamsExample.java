@@ -159,6 +159,7 @@ public class StreamsExample {
         Map<Integer, Long> duplicates = integerListWithDuplicates.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
+                .peek(System.out::println)
                 .filter(e -> e.getValue() > 1)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
