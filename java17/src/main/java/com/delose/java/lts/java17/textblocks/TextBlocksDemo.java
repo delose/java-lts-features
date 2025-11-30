@@ -8,5 +8,30 @@ public class TextBlocksDemo {
             And this is the third line.
             """;
         System.out.println(multiLineText);
+
+        String jsonPayload = """
+            {
+                "name": "Eugene Santos",
+                "age": 38,
+                "city": "Manila"
+            }
+            """;
+        System.out.println(jsonPayload);
+
+        String sqlQuery = """
+                SELECT
+                    employee_id,
+                    first_name,
+                    last_name
+                FROM
+                    employees
+                WHERE
+                    department_id = 101
+                ORDER BY
+                    last_name ASC;
+                """;
+
+        System.out.println(sqlQuery);
     }
+
 }
