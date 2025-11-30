@@ -48,7 +48,7 @@ public class StreamsExample {
 
         List<Integer> intList = List.of(1, 2, 3, 4, 5, 6);
 
-        // Starts with
+        System.out.println("--Starts with");
 
         List<String> namesThatStartsWithC = s.filterStartsWith(stringList, "C");
         List<String> namesThatStartsWithDefault = s.filterStartsWith(stringList, "A");
@@ -56,7 +56,7 @@ public class StreamsExample {
         System.out.println(namesThatStartsWithC);
         System.out.println(namesThatStartsWithDefault);
 
-        // Odd / Even numbers
+        System.out.println("--Odd / Even numbers");
 
         List<Integer> oddNumbers = s.filterOddEven(intList, NumberType.ODD);
         List<Integer> evenNumbers = s.filterOddEven(intList, NumberType.EVEN);
@@ -64,7 +64,7 @@ public class StreamsExample {
         System.out.println(oddNumbers);
         System.out.println(evenNumbers);
 
-        // Upper/Lower case
+        System.out.println("--Upper/Lower case");
 
         List<String> upperCase = s.mapUpperLowerCase(stringList, TextCase.UPPER);
         List<String> lowerCase = s.mapUpperLowerCase(stringList, TextCase.LOWER);
@@ -72,7 +72,7 @@ public class StreamsExample {
         System.out.println(upperCase);
         System.out.println(lowerCase);
 
-        // Find first
+        System.out.println("--Find first");
 
         Optional<String> first = stringList.stream().findFirst();
         System.out.println(first);
@@ -84,7 +84,7 @@ public class StreamsExample {
             System.out.println(e.getMessage());
         }
 
-        // Sum of squares
+        System.out.println("--Sum of squares");
 
         int sumOfSquares = List.of(1, 2, 3).stream()
                 .map(n -> n*n)
@@ -92,7 +92,7 @@ public class StreamsExample {
 
         System.out.println(sumOfSquares);
 
-        // Sort / Reverse Sort
+        System.out.println("--Sort / Reverse Sort");
 
         List<String> sortedNames = stringList.stream()
                 .sorted()
@@ -105,17 +105,18 @@ public class StreamsExample {
         System.out.println(sortedNames);
         System.out.println(reverseSort);
 
-        // Find max in list
+        System.out.println("--Find max in list");
+
         Optional<Integer> maxNumber = intList.stream()
                 .max(Integer::compare);
         maxNumber.ifPresent(System.out::println);
 
-        // Find min in list
+        System.out.println("--Find min in list");
         Optional<Integer> minNumber = intList.stream()
                 .min(Integer::compare);
         minNumber.ifPresent(System.out::println);
 
-        // Convert intList to longList
+        System.out.println("--Convert intList to longList");
         List<Long> longList = intList.stream()
                 .mapToLong(Long::valueOf)
                 .boxed()
@@ -123,7 +124,7 @@ public class StreamsExample {
 
         System.out.println(longList);
 
-        // Anagram list
+        System.out.println("--Anagram list");
 
         List<String> words = Arrays.asList("listen", "silent", "enlist", "rat", "tar", "god", "dog", "team", "meat");
 
@@ -139,7 +140,7 @@ public class StreamsExample {
 
         System.out.println(anagramList);
 
-        // Count frequency of each word
+        System.out.println("--Count frequency of each word");
         List<String> sentences = List.of(
                 "Java is fun",
                 "Streams are powerful",
@@ -152,7 +153,7 @@ public class StreamsExample {
 
         System.out.println(wordFreq);
 
-        // Find duplicate numbers and how many times they occur
+        System.out.println("--Find duplicate numbers and how many times they occur");
 
         List<Integer> integerListWithDuplicates = List.of(1, 2, 2, 3, 4, 4, 4, 5, 5, 6, 7, 7, 7, 7, 7, 8, 8, 9, 9, 9);
 
