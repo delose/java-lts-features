@@ -1,4 +1,4 @@
-package com.delose.java.lts.linkedlist;
+package com.delose.java.lts.collections.linkedlist;
 
 public class LinkedListBeginner {
 

@@ -1,4 +1,4 @@
-package com.delose.java.lts.hashmap;
+package com.delose.java.lts.collections.hashmap;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

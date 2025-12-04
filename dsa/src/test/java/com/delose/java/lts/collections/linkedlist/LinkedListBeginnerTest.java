@@ -1,4 +1,4 @@
-package com.delose.java.lts.linkedlist;
+package com.delose.java.lts.collections.linkedlist;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
