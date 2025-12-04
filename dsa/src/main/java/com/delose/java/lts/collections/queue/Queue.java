@@ -1,4 +1,4 @@
-package com.delose.java.lts.queue;
+package com.delose.java.lts.collections.queue;
 
 public interface Queue<T> {
     void enqueue(T value);

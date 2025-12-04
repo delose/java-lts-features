@@ -1,8 +1,8 @@
-package com.delose.java.lts.queue.impl;
+package com.delose.java.lts.collections.queue.impl;
 
 import java.util.LinkedList;
 
-import com.delose.java.lts.queue.Queue;
+import com.delose.java.lts.collections.queue.Queue;
 
 public class QueueNonOptimised<T> implements Queue<T> {
 

@@ -1,10 +1,10 @@
-package com.delose.java.lts.queue;
+package com.delose.java.lts.collections.queue;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.delose.java.lts.queue.impl.QueueNonOptimised;
-import com.delose.java.lts.queue.impl.QueueOptimised;
+import com.delose.java.lts.collections.queue.impl.QueueNonOptimised;
+import com.delose.java.lts.collections.queue.impl.QueueOptimised;
 
 public class QueuePerformanceTest {
 
