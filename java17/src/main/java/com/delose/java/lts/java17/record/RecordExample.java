@@ -1,4 +1,4 @@
-package com.delose.lts.java8.streams;
+package com.delose.java.lts.java17.record;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 record Book(String language, String title) {}
 
-public class GroupByExample {
+public class RecordExample {
 
     public static void main(String[] args) {
         List<Book> books = List.of(
