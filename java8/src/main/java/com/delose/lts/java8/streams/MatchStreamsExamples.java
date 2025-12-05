@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 public class MatchStreamsExamples {
 
-    public static void main() {
+    public static void main(String[] args) {
 
         List<Integer> intList = List.of(1, 2, 5, 7, 9, 11, 24, 48, 99, 100);
 

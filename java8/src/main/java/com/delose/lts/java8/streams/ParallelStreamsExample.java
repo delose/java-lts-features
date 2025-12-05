@@ -8,7 +8,7 @@ import java.util.List;
  * Task submission and processing: Uses Fork-Join pool technique
  */
 public class ParallelStreamsExample  {
-    static void main() {
+    public static void main(String[] args) {
         List<Integer> integerList = List.of(5, 10, 15, 20, 100, 105, 110, 115, 120, 44, 22, 33, 55, 66, 77, 88, 99, 2000 , 20, 40, 60, 80);
 
         long sequentialStreamTime = System.currentTimeMillis();
