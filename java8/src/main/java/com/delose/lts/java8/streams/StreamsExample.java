@@ -125,7 +125,7 @@ public class StreamsExample {
         List<Long> longList = intList.stream()
                 .mapToLong(Long::valueOf)
                 .boxed()
-                .toList();
+                .collect(Collectors.toList());
 
         System.out.println(longList);
 
