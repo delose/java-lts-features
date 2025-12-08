@@ -10,7 +10,7 @@ class Book {
 }
 
 public class HashSetExample {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Set<User> s = new HashSet<>();
         s.add(new User("1", "Ziggy"));
         s.add(new User("1", "Ziggy"));
