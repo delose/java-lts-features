@@ -60,7 +60,7 @@ class FaultyAccount {
 }
 
 public class FinancialMultithreadingExample {
-    static void main() throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         FaultyAccount account = new FaultyAccount(1000.0);
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
