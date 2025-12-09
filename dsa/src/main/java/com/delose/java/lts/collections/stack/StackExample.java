@@ -37,7 +37,8 @@ public class StackExample {
         System.out.println("s.setElementAt(22, 1) result: " + s);
         System.out.println("s.stream().count(): " + s.stream().count());
         System.out.println("s.subList(0, 2): " + s.subList(0, 2));
-        s.clear();
         System.out.println("s.isEmpty(): " + s.isEmpty());
+        s.clear();
+        System.out.println("s.isEmpty() after clear(): " + s.isEmpty());
     }
 }
