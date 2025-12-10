@@ -5,6 +5,10 @@ public class FactoryMethod {
         BasePizzaFactory pizzaFactory = new PizzaFactory();
         Pizza cheesePizza = pizzaFactory.createPizza("cheese");
         Pizza veggiePizza = pizzaFactory.createPizza("veggie");
+        Pizza pepperoniPizza = pizzaFactory.createPizza("pepperoni");
+        System.out.println(cheesePizza);
+        System.out.println(veggiePizza);
+        System.out.println(pepperoniPizza);
     }
 }
 
@@ -42,6 +46,11 @@ class CheesePizza extends Pizza {
     public String getIngredients() {
         return super.ingredients;
     }
+
+    @Override
+    public String toString() {
+        return ingredients;
+    }
 }
 
 class PepperoniPizza extends Pizza {
@@ -67,6 +76,11 @@ class PepperoniPizza extends Pizza {
     public String getIngredients() {
         return super.ingredients;
     }
+
+    @Override
+    public String toString() {
+        return ingredients;
+    }
 }
 
 class VeggiePizza extends Pizza {
@@ -91,6 +105,11 @@ class VeggiePizza extends Pizza {
     @Override
     public String getIngredients() {
         return super.ingredients;
+    }
+
+    @Override
+    public String toString() {
+        return ingredients;
     }
 }
 
