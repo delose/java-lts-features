@@ -19,8 +19,7 @@ class EmailNotificaiton implements Notification {
     }
 }
 
-public class Factory {
-
+class NotificationFactory {
     public Notification createNotification(String channel) {
         if (channel == null || channel.isEmpty()) {
             return  null;
@@ -34,5 +33,6 @@ public class Factory {
                 throw new IllegalArgumentException("Unknown channel " + channel);
         }
     }
-
 }
+
+public class Factory { }
