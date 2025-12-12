@@ -28,7 +28,7 @@ public class FrequencyCounter {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        System.out.println(freqMap + " took " + (System.currentTimeMillis() - start));
+        System.out.println("Using threads for " + freqMap + " took " + (System.currentTimeMillis() - start) + "ms");
     }
 
     private static void process(Map<Integer, Integer> freqMap, List<Integer> chunk) {
@@ -43,6 +43,6 @@ public class FrequencyCounter {
         Map<Integer, Long> longMap = integerList.stream()
                 .collect(Collectors.groupingBy(num -> num, Collectors.counting()));
 
-        System.out.println(longMap + " took " + (System.currentTimeMillis() - start));
+        System.out.println("Using streams for " + longMap + " took " + (System.currentTimeMillis() - start) + "ms");
     }
 }
