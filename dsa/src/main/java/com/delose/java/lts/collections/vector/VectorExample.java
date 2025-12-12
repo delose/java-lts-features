@@ -13,10 +13,8 @@ public class VectorExample {
         String grapes = fruits.get(0);
         System.out.println(grapes);
 
-        Iterator<String> iterator = fruits.iterator();
-
-        while (iterator.hasNext()) {
-            System.out.println("iterator.next(): " + iterator.next());
+        for (String fruit : fruits) {
+            System.out.println("iterator.next(): " + fruit);
         }
 
         fruits.remove("Mango");
