@@ -5,12 +5,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 
-public class HttpClientExample {
+public final class HttpClientExample {
 
     public String fetchData(String url) throws IOException, InterruptedException, IllegalArgumentException, SecurityException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
+        Objects.requireNonNull(url, "url must not be null");
+        var client = HttpClient.newHttpClient();
+        var request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
                 .build();
