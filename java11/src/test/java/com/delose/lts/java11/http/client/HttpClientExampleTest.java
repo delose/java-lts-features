@@ -6,9 +6,11 @@ import org.junit.Test;
 
 public class HttpClientExampleTest {
     @Test
-    public void testFetchData() throws Exception {
+    public void testFetchData() {
         HttpClientExample example = new HttpClientExample();
-        String response = example.fetchData("https://jsonplaceholder.typicode.com/posts/1");
-        assertTrue(response.contains("\"id\": 1"));
+        Optional<String> response = example.fetchData("https://jsonplaceholder.typicode.com/posts/1");
+        assertTrue(response.isPresent());
+        assertTrue(response.get().contains("\"id\": 1"));
     }
+
 }
