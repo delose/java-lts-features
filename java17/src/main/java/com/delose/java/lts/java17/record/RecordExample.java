@@ -1,27 +1,86 @@
 package com.delose.java.lts.java17.record;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-record Book(String language, String title) {}
+// Simple record for a financial transaction
+record Transaction(String id, BigDecimal amount, String currency, Instant timestamp) {}
+
+// Sealed interface for transaction types - ensures exhaustive pattern matching in switches
+sealed interface TransactionType permits Purchase, Refund, Transfer {
+    BigDecimal calculateFee(BigDecimal amount);
+}
+
+// Each transaction type implements the sealed interface
+record Purchase(BigDecimal amount) implements TransactionType {
+    @Override
+    public BigDecimal calculateFee(BigDecimal amount) {
+        return amount.multiply(BigDecimal.valueOf(0.02)); // 2% fee
+    }
+}
+
+record Refund(BigDecimal amount) implements TransactionType {
+    @Override
+    public BigDecimal calculateFee(BigDecimal amount) {
+        return BigDecimal.ZERO; // no fee for refunds
+    }
+}
+
+record Transfer(BigDecimal amount) implements TransactionType {
+    @Override
+    public BigDecimal calculateFee(BigDecimal amount) {
+        return amount.multiply(BigDecimal.valueOf(0.01)); // 1% fee
+    }
+}
 
 public class RecordExample {
 
     public static void main(String[] args) {
-        List<Book> books = List.of(
-                new Book("Spanish", "Don Quixote"),
-                new Book("Spanish", "La Sombra del Viento"),
-                new Book("English", "1984"),
-                new Book("German", "Bible")
+        // Example 1: Using records for immutable data transfer
+        List<Transaction> transactions = List.of(
+                new Transaction("tx1", new BigDecimal("100.50"), "USD", Instant.now()),
+                new Transaction("tx2", new BigDecimal("200.00"), "EUR", Instant.now()),
+                new Transaction("tx3", new BigDecimal("150.75"), "USD", Instant.now()),
+                new Transaction("tx4", new BigDecimal("300.25"), "GBP", Instant.now())
         );
 
-        Map<String, Long> result = books.stream()
+        // Group by currency and sum amounts using BigDecimal for precision
+        Map<String, BigDecimal> sumByCurrency = transactions.stream()
                 .collect(Collectors.groupingBy(
-                        Book::language,
-                        Collectors.counting()
+                        Transaction::currency,
+                        Collectors.mapping(Transaction::amount, Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))
                 ));
 
-        System.out.println(result);
+        System.out.println("Sum by currency: " + sumByCurrency);
+
+        // Example 2: Sealed hierarchy and switch expression (exhaustive, no default needed)
+        List<TransactionType> transactionTypes = List.of(
+                new Purchase(new BigDecimal("100.00")),
+                new Refund(new BigDecimal("50.00")),
+                new Transfer(new BigDecimal("200.00"))
+        );
+
+        // Switch expression on sealed type - compiler ensures all cases are covered
+        for (TransactionType type : transactionTypes) {
+            BigDecimal fee = switch (type) {
+                case Purchase:
+                    yield ((Purchase) type).calculateFee(((Purchase) type).amount());
+                case Refund:
+                    yield ((Refund) type).calculateFee(((Refund) type).amount());
+                case Transfer:
+                    yield ((Transfer) type).calculateFee(((Transfer) type).amount());
+            };
+            System.out.println("Fee for " + type + ": " + fee);
+        }
+
+        // Example 3: Pattern matching for instanceof (Java 16+)
+        Object obj = new Purchase(new BigDecimal("100"));
+        if (obj instanceof Purchase p) {
+            System.out.println("Purchase amount via pattern matching: " + p.amount());
+        }
     }
+
 }
