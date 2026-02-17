@@ -2,6 +2,10 @@ package com.delose.java.lts.java17.textblocks;
 
 public class TextBlocksDemo {
     public static void main(String[] args) {
+
+        String old = "This is the first line." +
+                "This is the second line.";
+
         String multiLineText = """
             This is the first line.
             This is the second line.

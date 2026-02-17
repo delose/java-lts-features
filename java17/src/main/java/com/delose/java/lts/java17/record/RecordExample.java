@@ -12,7 +12,8 @@ public class RecordExample {
         List<Book> books = List.of(
                 new Book("Spanish", "Don Quixote"),
                 new Book("Spanish", "La Sombra del Viento"),
-                new Book("English", "1984")
+                new Book("English", "1984"),
+                new Book("German", "Bible")
         );
 
         Map<String, Long> result = books.stream()
