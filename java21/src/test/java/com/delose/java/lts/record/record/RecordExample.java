@@ -66,12 +66,9 @@ public class RecordExample {
         // Switch expression on sealed type - compiler ensures all cases are covered
         for (TransactionType type : transactionTypes) {
             BigDecimal fee = switch (type) {
-                case Purchase:
-                    yield ((Purchase) type).calculateFee(((Purchase) type).amount());
-                case Refund:
-                    yield ((Refund) type).calculateFee(((Refund) type).amount());
-                case Transfer:
-                    yield ((Transfer) type).calculateFee(((Transfer) type).amount());
+                case Purchase p -> p.calculateFee(p.amount());
+                case Refund r   -> r.calculateFee(r.amount());
+                case Transfer t -> t.calculateFee(t.amount());
             };
             System.out.println("Fee for " + type + ": " + fee);
         }
