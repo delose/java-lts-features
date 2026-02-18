@@ -1,0 +1,25 @@
+
+## Developer Notes
+
+1. **Initialize project with Maven:**
+
+    ```sh
+    mvn archetype:generate -DgroupId=com.delose.java.lts -DartifactId=java-lts-features -DpackageName=com.delose.java11 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+    ```
+
+2. **Java 25 Requirements**:
+   - JDK 25 or later must be installed
+   - For preview features, use `--enable-preview` flag
+   - Set `JAVA_HOME` to point to JDK 25
+
+3. **Maven Compiler Configuration**:
+   The root `pom.xml` is configured with `<maven.compiler.release>25</maven.compiler.release>` to ensure compatibility.
+   Preview features are enabled at the module level in `java25/pom.xml`.
+
+## Contribution
+
+Contributions are welcome! If you'd like to add examples for other LTS versions or improve the existing ones, feel free to fork the repository and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
