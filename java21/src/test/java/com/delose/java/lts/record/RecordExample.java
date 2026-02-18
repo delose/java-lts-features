@@ -1,4 +1,4 @@
-package com.delose.java.lts.java17.record;
+package com.delose.java.lts.record;
 
 import java.math.BigDecimal;
 import java.time.Instant;
