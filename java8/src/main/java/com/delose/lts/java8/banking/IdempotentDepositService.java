@@ -2,6 +2,7 @@ package com.delose.lts.java8.banking;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -37,8 +38,8 @@ public class IdempotentDepositService {
         validateCommand(command);
         
         // Check for duplicate processing using idempotency key
-        IdempotencyRecord existingRecord = idempotencyRepository.findByKey(command.getIdempotencyKey());
-        if (existingRecord != null) {
+        Optional<IdempotencyRecord> existingRecord = idempotencyRepository.findByKey(command.getIdempotencyKey());
+        if (existingRecord.isPresent()) {
             auditLogger.log("Duplicate deposit attempt detected for idempotency key: " 
                 + command.getIdempotencyKey() + " by account: " + command.getAccountId());
             throw new DuplicateDepositException(
