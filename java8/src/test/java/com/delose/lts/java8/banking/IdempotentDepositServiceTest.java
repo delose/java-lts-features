@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -25,7 +26,7 @@ public class IdempotentDepositServiceTest {
         auditLogger = new SimpleAuditLogger();
         
         depositService = new IdempotentDepositService(
-            idempotencyRepository,
+//            idempotencyRepository,
             accountRepository,
             auditLogger
         );
@@ -166,6 +167,8 @@ public class IdempotentDepositServiceTest {
         t2.join();
         
         // Only one should succeed
-        assertTrue(idempotencyRepository.findByKey(idempotencyKey).isPresent());
+        Optional<IdempotencyRecord> byKey = idempotencyRepository.findByKey(idempotencyKey);
+        boolean present = byKey.isPresent();
+        assertTrue(present);
     }
 }
