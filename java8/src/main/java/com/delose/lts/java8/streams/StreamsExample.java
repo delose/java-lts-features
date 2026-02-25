@@ -17,11 +17,6 @@ public class StreamsExample {
                 .collect(Collectors.toList());
     }
 
-    public List<String> filterStartsWith(List<String> names) {
-        String STARTS_WITH_DEFAULT = "A";
-        return this.filterStartsWith(names, STARTS_WITH_DEFAULT);
-    }
-
     public enum NumberType {
         ODD,
         EVEN
