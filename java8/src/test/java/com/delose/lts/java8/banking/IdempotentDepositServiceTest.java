@@ -3,7 +3,6 @@ package com.delose.lts.java8.banking;
 import org.junit.Before;
 import org.junit.Test;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -148,10 +147,8 @@ public class IdempotentDepositServiceTest {
     
     @Test(expected = InvalidDepositException.class)
     public void testProcessDeposit_InactiveAccount() {
-        // Create an inactive account
-        accountRepository.createSampleAccount("ACC-INACTIVE", new BigDecimal("500.00"));
-        Account inactiveAccount = accountRepository.findById("ACC-INACTIVE").get();
-        inactiveAccount.setActive(false);
+        // Create an inactive account directly
+        Account inactiveAccount = new Account("ACC-INACTIVE", new BigDecimal("500.00"), false);
         accountRepository.save(inactiveAccount);
         
         DepositCommand command = new DepositCommand(
