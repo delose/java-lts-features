@@ -10,23 +10,21 @@ import static org.junit.Assert.*;
 
 /**
  * Unit tests for IdempotentDepositService.
- * Tests cover idempotency, validation, and error scenarios.
+ * Tests cover core deposit logic without idempotency concerns.
+ * For idempotency tests, see IdempotencyMiddlewareTest.
  */
 public class IdempotentDepositServiceTest {
     
     private IdempotentDepositService depositService;
     private InMemoryAccountRepository accountRepository;
-    private InMemoryIdempotencyRepository idempotencyRepository;
     private SimpleAuditLogger auditLogger;
     
     @Before
     public void setUp() {
         accountRepository = new InMemoryAccountRepository();
-        idempotencyRepository = new InMemoryIdempotencyRepository();
         auditLogger = new SimpleAuditLogger();
         
         depositService = new IdempotentDepositService(
-//            idempotencyRepository,
             accountRepository,
             auditLogger
         );
@@ -38,7 +36,7 @@ public class IdempotentDepositServiceTest {
     @Test
     public void testProcessDeposit_Success() {
         DepositCommand command = new DepositCommand(
-            "IDEMP-001",
+            "IDEMP-001", // idempotency key is still required for validation
             "ACC123",
             new BigDecimal("500.00"),
             "CASH",
@@ -53,25 +51,9 @@ public class IdempotentDepositServiceTest {
         assertNotNull(result.getTransactionId());
         assertEquals("COMPLETED", result.getStatus());
         
-        // Verify idempotency record was created
-        assertTrue(idempotencyRepository.findByKey("IDEMP-001").isPresent());
-    }
-    
-    @Test(expected = DuplicateDepositException.class)
-    public void testProcessDeposit_Duplicate() {
-        DepositCommand command = new DepositCommand(
-            "IDEMP-002",
-            "ACC123",
-            new BigDecimal("200.00"),
-            "CASH",
-            "Second deposit"
-        );
-        
-        // First call succeeds
-        depositService.processDeposit(command);
-        
-        // Second call with same idempotency key should fail
-        depositService.processDeposit(command);
+        // Verify account balance was updated
+        Account account = accountRepository.findById("ACC123").get();
+        assertEquals(new BigDecimal("1500.00"), account.getBalance());
     }
     
     @Test(expected = AccountNotFoundException.class)
@@ -114,61 +96,72 @@ public class IdempotentDepositServiceTest {
     }
     
     @Test
-    public void testIdempotencyRecord_Cleanup() {
-        // Create a record with old date
-        IdempotencyRecord oldRecord = new IdempotencyRecord(
-            "OLD-IDEMP",
-            "ACC123",
-            new BigDecimal("100.00"),
-            "TXN-OLD",
-            LocalDateTime.now().minusDays(40), // 40 days old
-            "COMPLETED"
-        );
-        idempotencyRepository.save(oldRecord);
+    public void testProcessDeposit_UpdatesBalanceCorrectly() {
+        BigDecimal initialBalance = new BigDecimal("1000.00");
+        BigDecimal depositAmount = new BigDecimal("250.75");
+        BigDecimal expectedBalance = initialBalance.add(depositAmount);
         
-        int deleted = idempotencyRepository.cleanupOldRecords(LocalDateTime.now());
-        assertEquals(1, deleted);
-        assertFalse(idempotencyRepository.findByKey("OLD-IDEMP").isPresent());
+        DepositCommand command = new DepositCommand(
+            "IDEMP-005",
+            "ACC123",
+            depositAmount,
+            "CASH",
+            "Test deposit"
+        );
+        
+        DepositResult result = depositService.processDeposit(command);
+        
+        assertEquals(expectedBalance, result.getNewBalance());
+        
+        Account account = accountRepository.findById("ACC123").get();
+        assertEquals(expectedBalance, account.getBalance());
     }
     
     @Test
-    public void testConcurrentDeposits_SameIdempotencyKey() throws InterruptedException {
-        final String idempotencyKey = "CONCURRENT-001";
-        final BigDecimal amount = new BigDecimal("100.00");
+    public void testProcessDeposit_MultipleDeposits() {
+        // First deposit
+        DepositCommand cmd1 = new DepositCommand(
+            "IDEMP-006",
+            "ACC123",
+            new BigDecimal("100.00"),
+            "CASH",
+            "First deposit"
+        );
+        DepositResult result1 = depositService.processDeposit(cmd1);
+        assertEquals(new BigDecimal("1100.00"), result1.getNewBalance());
+        
+        // Second deposit
+        DepositCommand cmd2 = new DepositCommand(
+            "IDEMP-007",
+            "ACC123",
+            new BigDecimal("200.00"),
+            "CASH",
+            "Second deposit"
+        );
+        DepositResult result2 = depositService.processDeposit(cmd2);
+        assertEquals(new BigDecimal("1300.00"), result2.getNewBalance());
+        
+        // Verify final balance
+        Account account = accountRepository.findById("ACC123").get();
+        assertEquals(new BigDecimal("1300.00"), account.getBalance());
+    }
+    
+    @Test(expected = InvalidDepositException.class)
+    public void testProcessDeposit_InactiveAccount() {
+        // Create an inactive account
+        accountRepository.createSampleAccount("ACC-INACTIVE", new BigDecimal("500.00"));
+        Account inactiveAccount = accountRepository.findById("ACC-INACTIVE").get();
+        inactiveAccount.setActive(false);
+        accountRepository.save(inactiveAccount);
         
         DepositCommand command = new DepositCommand(
-            idempotencyKey,
-            "ACC123",
-            amount,
+            "IDEMP-008",
+            "ACC-INACTIVE",
+            new BigDecimal("100.00"),
             "CASH",
-            "Concurrent deposit"
+            "Deposit to inactive account"
         );
         
-        // Simulate concurrent requests
-        Thread t1 = new Thread(() -> {
-            try {
-                depositService.processDeposit(command);
-            } catch (Exception e) {
-                // Expected: one will succeed, one will fail with duplicate
-            }
-        });
-        
-        Thread t2 = new Thread(() -> {
-            try {
-                depositService.processDeposit(command);
-            } catch (Exception e) {
-                // Expected: one will succeed, one will fail with duplicate
-            }
-        });
-        
-        t1.start();
-        t2.start();
-        t1.join();
-        t2.join();
-        
-        // Only one should succeed
-        Optional<IdempotencyRecord> byKey = idempotencyRepository.findByKey(idempotencyKey);
-        boolean present = byKey.isPresent();
-        assertTrue(present);
+        depositService.processDeposit(command);
     }
 }
